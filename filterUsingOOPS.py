@@ -1,11 +1,12 @@
 class ConsoleDisplayController:
     __content = '' 
     
-    def setContent(self, message):
-        self.__content = message
+    def setContent(self, array):
+        self.__content = array
         
     def display(self):
-        print(self.__content)
+        for item in self.__content:
+            print(item)
         
 class StartsWithStratedy:
     __startsWith = ''
@@ -17,24 +18,30 @@ class StartsWithStratedy:
         return item[0].lower() == self.__startsWith.lower()
 
 class StringListFilterController:
+    __returnArr = []
+    def setList(self, strList):
+        self.strList = strList
     
-    def filter(self,strList):
-        __returnArr = []
+    def filter(self):
+        
         obj = StartsWithStratedy()
         obj.setStartsWith('a')
-        for string in strList:
-            
+        for string in self.strList:
             if obj.invoke(string):
-                __returnArr.append(string)
-        return __returnArr
+                self.__returnArr.append(string)
+        
+        
+    def getList(self):
+        return self.__returnArr
 
 
 ExampleObject = ConsoleDisplayController()
 FilterObject = StringListFilterController()
-
-for item in FilterObject.filter(["Car", "Apple", "airplane"]):
-    ExampleObject.setContent(item)
-    ExampleObject.display()
+List1 = ["Car", "Apple", "airplane"]
+FilterObject.setList(List1)
+FilterObject.filter()
+ExampleObject.setContent(FilterObject.getList())
+ExampleObject.display()
 
 '''ALTERNATIVE : 
 class printer:
