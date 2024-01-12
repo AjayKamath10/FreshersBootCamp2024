@@ -94,7 +94,6 @@ class HTMLConverter(ConverterInterface):
     def convertHeader(self, header : Header):
         print("<h1>"+header.title+"</h1>")
         
-    
     def convertFooter(self, footer : Footer):
         print("<h2>"+footer.text+"</h2>")
     
@@ -103,8 +102,6 @@ class HTMLConverter(ConverterInterface):
     
     def convertPara(self, paragraph : Paragraph):
         print("<p>{}</p>".format(paragraph.content))
-    
-    
     
 class WordDocument:
     def __init__(self, documentParts=[]):
@@ -125,8 +122,6 @@ class WordDocument:
         for docPart in self.documentParts:
             docPart.convert(converterObject)
             
-    
- 
 def main():
     headerObj = Header("Title1")
     hyperlinkObj = Hyperlink("google.co.in", "search")
@@ -139,14 +134,13 @@ def main():
     
     HTMLConverterObj = HTMLConverter()
     
-     
     wordDoc.openDocument()
     print()
     wordDoc.saveDocument()
     print()
+    
     print("Converting to HTML")
     print("*"*25)
-
     
     wordDoc.transform(HTMLConverterObj)
     
