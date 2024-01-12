@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-
-
 class DocumentPart(ABC):
     _name = ''
     _position = ''
@@ -18,8 +16,6 @@ class DocumentPart(ABC):
     def save(self):
         pass
     
-    
- 
 class Header(DocumentPart):
     def __init__(self, title =  "DefaultTitle"):
         self.title = title
@@ -75,7 +71,6 @@ class Paragraph(DocumentPart):
     def convert(self, converterClass):
         converterClass.convertPara(self)
         pass 
- 
 
 class ConverterInterface(ABC):
     
@@ -126,6 +121,10 @@ class WordDocument:
         for part in self.documentParts:
             part.save()
             
+    def transform(self, converterObject):
+        for docPart in self.documentParts:
+            docPart.convert(converterObject)
+            
     
  
 def main():
@@ -149,7 +148,6 @@ def main():
     print("*"*25)
 
     
-    for docPart in wordDoc.documentParts:
-        docPart.convert(HTMLConverterObj)
+    wordDoc.transform(HTMLConverterObj)
     
 main()
