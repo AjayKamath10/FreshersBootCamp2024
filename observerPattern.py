@@ -48,7 +48,9 @@ class Thread():
         log.write("Added a subscriber")
         
     def unsubscribe(self, observerObj):
+        log = Log()
         self.observerList.remove(observerObj)
+        log.write("Removed a subscriber")
         
         
 class IObserver(ABC):
@@ -67,6 +69,14 @@ class DashboardObserver(IObserver):
         elif stateString == 'suspend':
             threadObj.suspend()
             
+        elif stateString == 'start':
+            threadObj.start()
+            
+        elif stateString == 'abort':
+            threadObj.abort()
+        
+        elif stateString == 'sleep':
+            threadObj.sleep(1)
         #elif (other states)
             
     def notify(self):
