@@ -10,7 +10,7 @@ class Thread():
     
     def __notify(self):
         for observer in self.observerList:
-            observer.notify()
+            observer.update(self.getState())
         
     def start(self):
         self.state = "running"
@@ -61,27 +61,10 @@ class IObserver(ABC):
         
 class DashboardObserver(IObserver):
     
-    def update(self,threadObj ,stateString):
+    def update(self,stateString):
         
-        if stateString == 'wait':
-            threadObj.wait()
-            
-        elif stateString == 'suspend':
-            threadObj.suspend()
-            
-        elif stateString == 'start':
-            threadObj.start()
-            
-        elif stateString == 'abort':
-            threadObj.abort()
-        
-        elif stateString == 'sleep':
-            threadObj.sleep(1)
-        #elif (other states)
-            
-    def notify(self):
         log = Log()
-        log.write("Dashboard notified about state change")
+        log.write("Dashboard notified about state change: Thread is "+ stateString)
     
 
 class Log():
@@ -90,14 +73,13 @@ class Log():
 def main():
     log = Log()
     Thread1 = Thread()
-    log.write(Thread1.getState())
+
     
     
     Dashboard = DashboardObserver()
     Thread1.subscribe(Dashboard)
-    
-    Dashboard.update(Thread1, 'wait')
-    log.write(Thread1.getState())
+    Thread1.start()
+    Thread1.abort()
     
     
 main()
