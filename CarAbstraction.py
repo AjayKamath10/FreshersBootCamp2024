@@ -77,8 +77,13 @@ class StartUpMotor(InterfaceStartUpMotor):
     def getStartUpMotor(self):
         return self.startUpMotorName
         
-
+class Log:
+    def writeLog(self,string):
+        print(string)
+        
 def main():
+    
+    log1 = Log()
     startUpMotor1 = StartUpMotor()
     startUpMotor1.setStartUpMotor("SUP1")
     fuelPump1 = FuelPump()
@@ -91,10 +96,7 @@ def main():
     transmission1.setTransmission("T1")
     
     car1 = Car(engine1, transmission1)
-    print(car1.getDetails())
+    log1.writeLog(car1.getDetails())
     
 main()
-    
-    
-    
     
