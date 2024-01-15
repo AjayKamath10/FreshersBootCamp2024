@@ -6,7 +6,7 @@ class Car:
         self.transmission = transmissionObj
         
     def getDetails(self):
-        return [self.engine, self.transmission.get]
+        return "Engine: {}, Transmission: {}".format(self.engine.getEngine(), self.transmission.getTransmission())
         
 class InterfaceTransmission(ABC):
     @abstractmethod
@@ -21,22 +21,28 @@ class Transmission(InterfaceTransmission):
     def setTransmission(self,transmissionName):
         self.transmission = transmissionName
     
-    
     def getTransmission(self):
-        return self.transmissionName
+        return self.transmission
     
 class InterfaceEngine(ABC):
     @abstractmethod
     def setEngine(self, engineName):
         pass
+    
+    @abstractmethod
+    def getEngine(self):
+        pass
 
-class Engine:
+class Engine(InterfaceEngine):
     def __init__(self, FuelPumpObj, StartupMotorObj):
         self.fuelPump = FuelPumpObj
         self.startUpMotor = StartupMotorObj
         
     def setEngine(self, engineName):
         self.engineName = engineName
+        
+    def getEngine(self):
+        return self.engineName
         
 class InterfaceFuelPump(ABC):
     @abstractmethod
@@ -85,6 +91,9 @@ def main():
     transmission1.setTransmission("T1")
     
     car1 = Car(engine1, transmission1)
+    print(car1.getDetails())
+    
+main()
     
     
     
