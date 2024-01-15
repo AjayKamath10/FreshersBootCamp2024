@@ -52,7 +52,6 @@ class Thread():
         self.observerList.remove(observerObj)
         log.write("Removed a subscriber")
         
-        
 class IObserver(ABC):
     
     @abstractmethod
@@ -66,21 +65,18 @@ class DashboardObserver(IObserver):
         log = Log()
         log.write("Dashboard notified about state change: Thread is "+ stateString)
     
-
 class Log():
     def write(self, string):
         print(string)
+        
 def main():
     log = Log()
     Thread1 = Thread()
 
-    
-    
     Dashboard = DashboardObserver()
     Thread1.subscribe(Dashboard)
     Thread1.start()
     Thread1.abort()
-    
     
 main()
     
