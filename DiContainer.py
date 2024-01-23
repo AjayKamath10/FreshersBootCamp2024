@@ -6,7 +6,7 @@ class Car:
         self.transmission = transmissionObj
         
     def getDetails(self):
-        return "Engine: {}, Transmission: {}".format(self.engine.getEngine(), self.transmission.getTransmission())
+        return "Engine: {}, Transmission: {}".format(self.engine.getEngine(), self.transmission)
         
 class InterfaceTransmission(ABC):
     @abstractmethod
@@ -42,7 +42,7 @@ class Engine(InterfaceEngine):
         self.engineName = engineName
         
     def getEngine(self):
-        return self.engineName
+        return self.fuelPump
         
 class InterfaceFuelPump(ABC):
     @abstractmethod
@@ -84,25 +84,24 @@ class Log:
 class DiContainer:
     @staticmethod
     def createEngine():
-        return Engine(F
+        return Engine(FuelPump(), StartUpMotor())
+        
+    @staticmethod
+    def createTransmission():
+        return Transmission()
+        
+    @staticmethod
+    def createCar():
+        Engine1 = DiContainer.createEngine()
+        Transmission1 = DiContainer.createTransmission()
+        return Car(Engine1, Transmission1)
     
         
 def main():
     
     log1 = Log()
-    startUpMotor1 = StartUpMotor()
-    startUpMotor1.setStartUpMotor("SUP1")
-    fuelPump1 = FuelPump()
-    fuelPump1.setFuelPump("FP1")
-    
-    engine1 = Engine(startUpMotor1, fuelPump1)
-    engine1.setEngine("E1")
-    
-    transmission1 = Transmission()
-    transmission1.setTransmission("T1")
-    
-    car1 = Car(engine1, transmission1)
-    log1.writeLog(car1.getDetails())
+    carObj = DiContainer.createCar()
+    log1.writeLog(carObj.getDetails())
     
 main()
     
